@@ -3,6 +3,12 @@
 //$path_allegato = $_SERVER['DOCUMENT_ROOT'].'/importfile/';
 $path_allegato = '';
 
+/**$imageResize = new \Gumlet\ImageResize($path_immagini_utente_upload.$path_lavorate.'/'.$img_creopped);
+                $imageResize->resizeToWidth(600);
+                $imageResize->save($path_immagini_utente_upload_thumb.$path_lavorate.'/'.$img_creopped); */
+
+include 'php-image-resize/lib/ImageResize.php';
+
 if(isset($_FILES['importfile'])){
 
     echo '<p>Esporto gli elementi.....</p>';
@@ -43,9 +49,19 @@ if(isset($_FILES['importfile'])){
 
                     $img = explode("/",$dati[3]);
 
-                    if(copy($dati[3],$path_allegato.$img[count($img)-1])){
+                    $nome_foto = $img[count($img)-1];
+
+                    if(copy($dati[3],$path_allegato.$nome_foto)){
+
+                        $image = new \Gumlet\ImageResize($path_allegato.$nome_foto);
+                        $image->resizeToWidth(200);
+                        $image->save($path_allegato.'res_'.$nome_foto.'');
+
+                        $explode_nome = explode('?',$nome_foto);
+
+                        rename($path_allegato.'res_'.$nome_foto,$path_allegato.'res_'.$explode_nome[0]);
                         
-                        $zip->addFile($img[count($img)-1]);
+                        $zip->addFile('res_'.$explode_nome[0]);
                     }
 
                 }
