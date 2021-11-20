@@ -53,7 +53,10 @@ if(isset($_FILES['importfile'])){
                         $image->resizeToWidth(200);
                         $image->save($path_allegato.'res_'.$nome_foto.'');
 
-                        $explode_nome = explode('?',$nome_foto);
+                        if(preg_match("/\?/",$url))
+                            $explode_nome = explode('?',$nome_foto);
+                        elseif(preg_match("/_v=/",$url))
+                            $explode_nome = explode('_v=',$nome_foto);
 
                         rename($path_allegato.'res_'.$nome_foto,$path_allegato.'res_'.$explode_nome[0]);
                         
