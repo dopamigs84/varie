@@ -3,10 +3,6 @@
 //$path_allegato = $_SERVER['DOCUMENT_ROOT'].'/importfile/';
 $path_allegato = '';
 
-/**$imageResize = new \Gumlet\ImageResize($path_immagini_utente_upload.$path_lavorate.'/'.$img_creopped);
-                $imageResize->resizeToWidth(600);
-                $imageResize->save($path_immagini_utente_upload_thumb.$path_lavorate.'/'.$img_creopped); */
-
 include 'php-image-resize/lib/ImageResize.php';
 
 if(isset($_FILES['importfile'])){
