@@ -19,20 +19,28 @@
 
                     let href = $(this).attr('href');
 
-                    let adesso = new Date();
+                    var amzlink = new RegExp(/amazon.it/g);
 
-                    let quid = adesso.getTime();
+                    //console.log(amzlink);
 
-                    const trova = href.match('/\?/');
+                    if(amzlink.test(href)){
 
-                    if(!trova.includes('?'))
-                        var newlink = `${href}?quid=${quid}`;
+                        let adesso = new Date();
+
+                        let quid = adesso.getTime();
+
+                        const trova_int = new RegExp(/\?/g);
+
+                        if(trova_int.test(href))
+                            var newlink = `${href}&quid=${quid}`;
+                        else
+                            var newlink = `${href}?quid=${quid}`;
+
+                    }
                     else
-                        var newlink = `${href}&quid=${quid}`;
+                        var newlink = href;
 
-                    //console.log(newlink);
-
-                    //window.location.href = newlink;
+                    console.log(newlink);
 
                     window.open(newlink,'_blank');
 
@@ -47,9 +55,9 @@
 <body>
 
     <ul>
-        <li><a href="https://www.amazon.it/dp/B09LHR1RX1">Link 1</a></li>
+        <li><a href="https://www.amazon.it/dp/B09LHR1RX1?th=1">Link 1</a></li>
         <li><a href="https://www.amazon.it/dp/B07HS4Z51L">Link 2</a></li>
-        <li><a href="https://www.amazon.it/dp/B00HY7LV6E">Link 3</a></li>
+        <li><a href="https://www.google.it">Link 3</a></li>
     </ul>
     
 </body>
